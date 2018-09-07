@@ -57,7 +57,7 @@ For more scripts in mathematica to generate input files and extract content from
 
 ## Development
 
-This project is desinged with cosideration on extensibility and scalability. So it is very ease to add new types of Hamiltonians and new types of observables. Hack `\src\hamiltonian.cpp` for the former one and hack `\src\model.cpp` for the latter one.
+This project is desinged with cosideration on extensibility and scalability. So it is very ease to add new types of Hamiltonians and new types of observables. Hack `src/hamiltonian.cpp` for the former one and hack `src/model.cpp` for the latter one.
 
 ## How to cite
 

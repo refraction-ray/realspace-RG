@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      5115,        166]
-NotebookOptionsPosition[      4345,        133]
-NotebookOutlinePosition[      4700,        149]
-CellTagsIndexPosition[      4657,        146]
+NotebookDataLength[      4955,        162]
+NotebookOptionsPosition[      4158,        130]
+NotebookOutlinePosition[      4512,        146]
+CellTagsIndexPosition[      4469,        143]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -23,35 +23,19 @@ Cell[CellGroupData[{
 Cell["Data Import", "Subsection",
  CellChangeTimes->{{3.7453070559753113`*^9, 3.7453070582791557`*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
- RowBox[{"Import", "[", 
-  RowBox[{
-   RowBox[{"FileNameJoin", "[", 
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<output.txt\>\""}], 
-     "}"}], "]"}], ",", "\"\<Data\>\""}], "]"}]], "Input",
+ RowBox[{
+  RowBox[{"results", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"FileNameJoin", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<output.txt\>\""}], 
+       "}"}], "]"}], ",", "\"\<Data\>\""}], "]"}]}], ";"}]], "Input",
  CellChangeTimes->{{3.745302974226487*^9, 3.7453029990730553`*^9}, {
-  3.745303311476862*^9, 3.745303332876369*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{"1", ",", "2.84`", ",", "3.883`", ",", "6.2832`", ",", 
-     RowBox[{"-", "0.1`"}], ",", "0.1`", ",", "600", ",", "0.3`", ",", "500", 
-     ",", "0.68701`", ",", "0.0206956`", ",", "0.693463`", ",", "0.0203631`", 
-     ",", "0.690753`", ",", "0.0206228`"}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"1", ",", "2.84`", ",", "3.883`", ",", "6.2832`", ",", 
-     RowBox[{"-", "0.1`"}], ",", "0.1`", ",", "600", ",", "0.3`", ",", "500", 
-     ",", "0.706951`", ",", "0.0203113`", ",", "0.712847`", ",", "0.0200007`",
-      ",", "0.71068`", ",", "0.0202082`"}], "}"}]}], "}"}]], "Output",
- CellChangeTimes->{{3.745302980360108*^9, 3.745302999768279*^9}, {
-  3.745303319281044*^9, 3.745303333410207*^9}}]
-}, Open  ]]
+  3.745303311476862*^9, 3.745303332876369*^9}, {3.745307885519102*^9, 
+  3.7453078964950323`*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -59,7 +43,7 @@ Cell[CellGroupData[{
 Cell["Data Export", "Subsection",
  CellChangeTimes->{{3.745307062110795*^9, 3.745307064079382*^9}}],
 
-Cell[BoxData[
+Cell[BoxData[{
  RowBox[{
   RowBox[{"times", "=", 
    RowBox[{
@@ -82,6 +66,7 @@ Cell[BoxData[
          RowBox[{"Floor", "[", 
           RowBox[{"times", "/", 
            RowBox[{"size", "^", "2.6"}]}], "]"}]}], "}"}], ",", 
+       "\[IndentingNewLine]", 
        RowBox[{"{", 
         RowBox[{"size", ",", 
          RowBox[{"{", 
@@ -90,10 +75,16 @@ Cell[BoxData[
            "1000"}], "}"}]}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"amp", ",", "3.3", ",", "3.4", ",", "0.01"}], "}"}]}], "]"}], 
-     ",", "1"}], "]"}]}], ";"}]], "Input",
+     ",", "1"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "customize", " ", "data", " ", "to", " ", "automatically", " ", "generate",
+     " ", "and", " ", "export"}], " ", "*)"}]}]}], "Input",
  CellChangeTimes->{{3.7453071122268133`*^9, 3.745307199604144*^9}, {
-  3.745307260205168*^9, 3.7453073161488333`*^9}, {3.745307357001751*^9, 
-  3.7453073899963093`*^9}}],
+   3.745307260205168*^9, 3.7453073161488333`*^9}, {3.745307357001751*^9, 
+   3.7453073899963093`*^9}, 3.745307877158887*^9, {3.745307967815571*^9, 
+   3.745307985131598*^9}}],
 
 Cell[CellGroupData[{
 
@@ -110,29 +101,35 @@ Cell[BoxData["67"], "Output",
  CellChangeTimes->{3.7453073920129128`*^9}]
 }, Open  ]],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{"Export", "[", 
   RowBox[{
    RowBox[{"FileNameJoin", "[", 
     RowBox[{"{", 
      RowBox[{
-      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<input2.txt\>\""}], 
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<input.txt\>\""}], 
      "}"}], "]"}], ",", "data", ",", "\"\<Table\>\""}], "]"}]], "Input",
- CellChangeTimes->{{3.745307084925371*^9, 3.7453071201859283`*^9}}],
-
-Cell[BoxData["\<\"/Users/shixin/Documents/newwork/realspace-RG/utils/input2.\
-txt\"\>"], "Output",
- CellChangeTimes->{3.7453074056978073`*^9}]
-}, Open  ]]
+ CellChangeTimes->{{3.745307084925371*^9, 3.7453071201859283`*^9}, 
+   3.745307908136435*^9}]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
 Cell["Data Analysis", "Subsection",
- CellChangeTimes->{{3.745307067663454*^9, 3.745307071455443*^9}}]
+ CellChangeTimes->{{3.745307067663454*^9, 3.745307071455443*^9}}],
+
+Cell["Data Merge", "Subsubsection",
+ CellChangeTimes->{{3.7453079151338377`*^9, 3.745307940901634*^9}}],
+
+Cell["Data Crossing", "Subsubsection",
+ CellChangeTimes->{{3.745307923359696*^9, 3.745307926766326*^9}}],
+
+Cell["Data Collapsing", "Subsubsection",
+ CellChangeTimes->{{3.7453079305662737`*^9, 3.745307934654271*^9}}]
+}, Open  ]]
 },
 WindowSize->{808, 751},
-WindowMargins->{{Automatic, 133}, {Automatic, 43}},
+WindowMargins->{{Automatic, 133}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (June 27, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -150,24 +147,23 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 103, 1, 44, "Subsection"],
+Cell[686, 25, 478, 12, 28, "Input"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[708, 27, 367, 9, 28, "Input"],
-Cell[1078, 38, 768, 14, 63, "Output"]
+Cell[1201, 42, 99, 1, 44, "Subsection"],
+Cell[1303, 45, 1561, 41, 114, "Input"],
+Cell[CellGroupData[{
+Cell[2889, 90, 343, 7, 28, "Input"],
+Cell[3235, 99, 73, 1, 28, "Output"]
+}, Open  ]],
+Cell[3323, 103, 357, 9, 28, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3717, 117, 101, 1, 44, "Subsection"],
+Cell[3821, 120, 103, 1, 35, "Subsubsection"],
+Cell[3927, 123, 104, 1, 29, "Subsubsection"],
+Cell[4034, 126, 108, 1, 29, "Subsubsection"]
 }, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[1895, 58, 99, 1, 44, "Subsection"],
-Cell[1997, 61, 1258, 34, 97, "Input"],
-Cell[CellGroupData[{
-Cell[3280, 99, 343, 7, 28, "Input"],
-Cell[3626, 108, 73, 1, 28, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3736, 114, 332, 8, 28, "Input"],
-Cell[4071, 124, 142, 2, 28, "Output"]
-}, Open  ]]
-}, Open  ]],
-Cell[4240, 130, 101, 1, 44, "Subsection"]
 }
 ]
 *)
