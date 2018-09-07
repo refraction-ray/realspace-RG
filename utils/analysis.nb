@@ -1,0 +1,175 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5115,        166]
+NotebookOptionsPosition[      4345,        133]
+NotebookOutlinePosition[      4700,        149]
+CellTagsIndexPosition[      4657,        146]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Data Import", "Subsection",
+ CellChangeTimes->{{3.7453070559753113`*^9, 3.7453070582791557`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Import", "[", 
+  RowBox[{
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<output.txt\>\""}], 
+     "}"}], "]"}], ",", "\"\<Data\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.745302974226487*^9, 3.7453029990730553`*^9}, {
+  3.745303311476862*^9, 3.745303332876369*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2.84`", ",", "3.883`", ",", "6.2832`", ",", 
+     RowBox[{"-", "0.1`"}], ",", "0.1`", ",", "600", ",", "0.3`", ",", "500", 
+     ",", "0.68701`", ",", "0.0206956`", ",", "0.693463`", ",", "0.0203631`", 
+     ",", "0.690753`", ",", "0.0206228`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2.84`", ",", "3.883`", ",", "6.2832`", ",", 
+     RowBox[{"-", "0.1`"}], ",", "0.1`", ",", "600", ",", "0.3`", ",", "500", 
+     ",", "0.706951`", ",", "0.0203113`", ",", "0.712847`", ",", "0.0200007`",
+      ",", "0.71068`", ",", "0.0202082`"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.745302980360108*^9, 3.745302999768279*^9}, {
+  3.745303319281044*^9, 3.745303333410207*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Data Export", "Subsection",
+ CellChangeTimes->{{3.745307062110795*^9, 3.745307064079382*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"times", "=", 
+   RowBox[{
+    RowBox[{"600", "^", "2.6"}], "*", "100000"}]}], ";", 
+  RowBox[{"data", " ", "=", " ", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", " ", "amp", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"Sqrt", "[", "5", "]"}], "-", "1"}], ")"}], "/", "2"}], 
+          "*", "2.", "Pi"}], ",", 
+         RowBox[{"2.", "Pi"}], ",", 
+         RowBox[{"-", "0.1"}], ",", "0", ",", "size", ",", "0.3", ",", 
+         RowBox[{"Floor", "[", 
+          RowBox[{"times", "/", 
+           RowBox[{"size", "^", "2.6"}]}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"size", ",", 
+         RowBox[{"{", 
+          RowBox[{
+          "600", ",", "800", ",", "800", ",", "1000", ",", "1000", ",", 
+           "1000"}], "}"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"amp", ",", "3.3", ",", "3.4", ",", "0.01"}], "}"}]}], "]"}], 
+     ",", "1"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7453071122268133`*^9, 3.745307199604144*^9}, {
+  3.745307260205168*^9, 3.7453073161488333`*^9}, {3.745307357001751*^9, 
+  3.7453073899963093`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Length", "[", "data", "]"}], "+", "1", 
+  RowBox[{"(*", " ", 
+   RowBox[{"number", " ", "of", " ", "processes"}], " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.7453071223235197`*^9, 3.7453071252344313`*^9}, {
+  3.745307320598851*^9, 3.7453073208057117`*^9}, {3.745307394622717*^9, 
+  3.745307402190735*^9}}],
+
+Cell[BoxData["67"], "Output",
+ CellChangeTimes->{3.7453073920129128`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<input2.txt\>\""}], 
+     "}"}], "]"}], ",", "data", ",", "\"\<Table\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.745307084925371*^9, 3.7453071201859283`*^9}}],
+
+Cell[BoxData["\<\"/Users/shixin/Documents/newwork/realspace-RG/utils/input2.\
+txt\"\>"], "Output",
+ CellChangeTimes->{3.7453074056978073`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell["Data Analysis", "Subsection",
+ CellChangeTimes->{{3.745307067663454*^9, 3.745307071455443*^9}}]
+},
+WindowSize->{808, 751},
+WindowMargins->{{Automatic, 133}, {Automatic, 43}},
+FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (June 27, \
+2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 103, 1, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[708, 27, 367, 9, 28, "Input"],
+Cell[1078, 38, 768, 14, 63, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1895, 58, 99, 1, 44, "Subsection"],
+Cell[1997, 61, 1258, 34, 97, "Input"],
+Cell[CellGroupData[{
+Cell[3280, 99, 343, 7, 28, "Input"],
+Cell[3626, 108, 73, 1, 28, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3736, 114, 332, 8, 28, "Input"],
+Cell[4071, 124, 142, 2, 28, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[4240, 130, 101, 1, 44, "Subsection"]
+}
+]
+*)
+
+(* End of internal cache information *)

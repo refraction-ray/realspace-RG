@@ -36,7 +36,28 @@ The original idea of this algorithm is from these two papers: 1) A. C. Potter, R
 
 One can only run the program as a demo on his or her desktop or laptop. To get some more serious results, a supercomputer is necessary for this program. And the mpi version of the program is specifically designed for large supercomputers, i.e. `bin/rsrgmpi` compiled from `src/main_mpi.cpp`.
 
+basic options: `-i <input/file/path>`, `-o <output/file/path>`, for file io pathes. If no path specified, the default path is `input.txt` and `output.txt`, if there is file with the same name, they will be override.
+
+`-r` or `-q` for different scheme to calculate the localization length. `-q` is set by default, which is suitable for quasiperiodic system while `-r` is for quenched disorder system.
+
+The Hamiltonian used in current version has NNN hopping and both type of potentials (random vs. quasiperiodic). The measures input used in current version is default `get_measures()` which includes three quantities:  average-length ratio, max-length ratio and entanglement entropy density.
+
+The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-poetntial system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`.
+
+To use it on supercomputers with slurm. One can first write a bash script as `run.sh`
+
+```bash
+#!/bin/bash
+srun -n 80 -N 4 bin/rsrgmpi -i utils/input.txt -o utils/output.txt
+```
+
+where 80 should be the number of lines in inputfile **plus 1**, and 4 is the number of total nodes you want to utilize. To submit the task, just use `sbatch -N 4 run.sh` .
+
+For more scripts in mathematica to generate input files and extract content from output files, together with some basic analysis, see `utils/`.
+
 ## Development
+
+This project is desinged with cosideration on extensibility and scalability. So it is very ease to add new types of Hamiltonians and new types of observables. Hack `\src\hamiltonian.cpp` for the former one and hack `\src\model.cpp` for the latter one.
 
 ## How to cite
 
