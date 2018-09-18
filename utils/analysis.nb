@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      4955,        162]
-NotebookOptionsPosition[      4158,        130]
-NotebookOutlinePosition[      4512,        146]
-CellTagsIndexPosition[      4469,        143]
+NotebookDataLength[     15543,        476]
+NotebookOptionsPosition[     14443,        433]
+NotebookOutlinePosition[     14797,        449]
+CellTagsIndexPosition[     14754,        446]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -118,14 +118,317 @@ Cell[CellGroupData[{
 Cell["Data Analysis", "Subsection",
  CellChangeTimes->{{3.745307067663454*^9, 3.745307071455443*^9}}],
 
+Cell[CellGroupData[{
+
 Cell["Data Merge", "Subsubsection",
  CellChangeTimes->{{3.7453079151338377`*^9, 3.745307940901634*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sizeloc", " ", "=", " ", "7"}], ";", " ", 
+  RowBox[{"potentialloc", "=", "2"}], ";", 
+  RowBox[{"observableloc", " ", "=", " ", "14"}], ";", " ", 
+  RowBox[{"obstdloc", " ", "=", " ", 
+   RowBox[{"observableloc", "+", "1"}]}], ";", 
+  RowBox[{"repeatloc", " ", "=", "9"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "tune", " ", "the", " ", "index", " ", "here", " ", "if", " ", "the", " ", 
+    "data", " ", "arrange", " ", "is", " ", "different"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"groupbysize", "[", "data_", "]"}], ":=", " ", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"size", "=", 
+       RowBox[{"DeleteDuplicates", "[", 
+        RowBox[{"data", "[", 
+         RowBox[{"[", 
+          RowBox[{";;", ",", "sizeloc"}], "]"}], "]"}], "]"}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Return", "[", 
+      RowBox[{"Table", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"SortBy", "[", 
+         RowBox[{
+          RowBox[{"Select", "[", 
+           RowBox[{"data", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"#", "[", 
+               RowBox[{"[", "sizeloc", "]"}], "]"}], "\[Equal]", 
+              RowBox[{"size", "[", 
+               RowBox[{"[", "i", "]"}], "]"}]}], "&"}]}], "]"}], ",", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "potentialloc", "]"}], "]"}], "&"}]}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", 
+          RowBox[{"Length", "[", "size", "]"}]}], "}"}]}], "]"}], "]"}]}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"filter", "[", "data_", "]"}], ":=", " ", 
+   RowBox[{"data", "[", 
+    RowBox[{"[", 
+     RowBox[{";;", ",", ";;", ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "sizeloc", ",", "potentialloc", ",", "observableloc", ",", 
+        "obstdloc"}], "}"}]}], "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"statmerge", "[", 
+    RowBox[{"statdata_", ",", "r_", ",", "m_", ",", "s_"}], "]"}], ":=", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"len", " ", "=", " ", 
+        RowBox[{"Length", "[", "statdata", "]"}]}], ",", "sum", ",", 
+       RowBox[{"data", "=", 
+        RowBox[{"statdata", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"sum", " ", "=", 
+       RowBox[{"Total", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"statdata", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "r"}], "]"}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "1", ",", "len"}], "}"}]}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", "r", "]"}], "]"}], " ", "=", " ", "sum"}], ";", " ", 
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", "m", "]"}], "]"}], " ", "=", " ", 
+       RowBox[{
+        RowBox[{"Total", "[", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"statdata", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "r"}], "]"}], "]"}], "*", 
+            RowBox[{"statdata", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "m"}], "]"}], "]"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", "1", ",", "len"}], "}"}]}], "]"}], "]"}], "/", 
+        "sum"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", "s", "]"}], "]"}], "=", 
+       RowBox[{
+        RowBox[{"Sqrt", "[", 
+         RowBox[{"Total", "[", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"statdata", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "r"}], "]"}], "]"}], "^", "2"}], "*", 
+             RowBox[{
+              RowBox[{"statdata", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "s"}], "]"}], "]"}], "^", "2"}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"i", ",", "1", ",", "len"}], "}"}]}], "]"}], "]"}], 
+         "]"}], "/", "sum"}]}], ";", 
+      RowBox[{"Return", "[", "data", "]"}]}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"merge", "[", "data_", "]"}], ":=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"amp", "=", 
+       RowBox[{"DeleteDuplicates", "[", 
+        RowBox[{"data", "[", 
+         RowBox[{"[", 
+          RowBox[{"j", ",", ";;", ",", "potentialloc"}], "]"}], "]"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"statmerge", "[", 
+         RowBox[{
+          RowBox[{"Select", "[", 
+           RowBox[{
+            RowBox[{"data", "[", 
+             RowBox[{"[", "j", "]"}], "]"}], ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"#", "[", 
+               RowBox[{"[", "potentialloc", "]"}], "]"}], "\[Equal]", 
+              RowBox[{"amp", "[", 
+               RowBox[{"[", "i", "]"}], "]"}]}], "&"}]}], "]"}], ",", 
+          "repeatloc", ",", "observableloc", ",", "obstdloc"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", 
+          RowBox[{"Length", "[", "amp", "]"}]}], "}"}]}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", 
+       RowBox[{"Length", "[", "data", "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"logy", "[", 
+    RowBox[{"data_", ",", 
+     RowBox[{"base_:", "10"}]}], "]"}], ":=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"data", "[", 
+      RowBox[{"[", "1", "]"}], "]"}], ",", 
+     RowBox[{"data", "[", 
+      RowBox[{"[", "2", "]"}], "]"}], ",", 
+     RowBox[{"Log", "[", 
+      RowBox[{"base", ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], "]"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"data", "[", 
+        RowBox[{"[", "4", "]"}], "]"}], "/", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], "/", 
+      RowBox[{"Log", "[", "base", "]"}]}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"fit", "[", 
+    RowBox[{"data_", ",", "v_", ",", "wc_"}], "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"data", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "j", ",", "2"}], "]"}], "]"}], "-", "wc"}], 
+         ")"}], "*", 
+        RowBox[{
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "j", ",", "1"}], "]"}], "]"}], "^", 
+         RowBox[{"(", 
+          RowBox[{"1", "/", "v"}], ")"}]}]}], ",", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", 
+         RowBox[{"i", ",", "j", ",", "3"}], "]"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", 
+       RowBox[{"Length", "[", "data", "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", 
+       RowBox[{"Length", "[", 
+        RowBox[{"data", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], "]"}]}], "}"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.746267757281538*^9, 3.746267770907695*^9}, {
+  3.746267816710608*^9, 3.746267832973378*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell["Data Crossing", "Subsubsection",
  CellChangeTimes->{{3.745307923359696*^9, 3.745307926766326*^9}}],
 
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"res", "=", 
+   RowBox[{"filter", "[", 
+    RowBox[{"merge", "[", 
+     RowBox[{"groupbysize", "[", "tot", "]"}], "]"}], "]"}]}], ";"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"res", "=", 
+   RowBox[{"Map", "[", 
+    RowBox[{"logy", ",", "res", ",", 
+     RowBox[{"{", "2", "}"}]}], "]"}]}], ";", 
+  RowBox[{"(*", 
+   RowBox[{
+   "add", " ", "this", " ", "line", " ", "if", " ", "you", " ", "want", " ", 
+    "to", " ", "plot", " ", "log"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.746267797906012*^9, 3.7462678079611607`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ListLinePlot", "[", 
+   RowBox[{
+    RowBox[{"res", "[", 
+     RowBox[{"[", 
+      RowBox[{";;", ",", ";;", ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "3"}], "}"}]}], "]"}], "]"}], ",", 
+    RowBox[{"PlotRange", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"3.1", ",", "3.6"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "4"}], ",", 
+         RowBox[{"-", "2"}]}], "}"}]}], "}"}]}]}], "]"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "plot", " ", "the", " ", "crossing", " ", "of", " ", "observable", " ", 
+     "in", " ", "different", " ", "sizes"}], ",", " ", 
+    RowBox[{
+    "find", " ", "the", " ", "crossing", " ", "point", " ", "as", " ", 
+     "critical", " ", "point", " ", "wc"}]}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.7462678435248013`*^9, 3.746267874068769*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell["Data Collapsing", "Subsubsection",
- CellChangeTimes->{{3.7453079305662737`*^9, 3.745307934654271*^9}}]
+ CellChangeTimes->{{3.7453079305662737`*^9, 3.745307934654271*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"wc", "=", "3.38"}], ";", 
+  RowBox[{"Manipulate", "[", 
+   RowBox[{
+    RowBox[{"ListLinePlot", "[", 
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"fit", "[", 
+          RowBox[{"res", ",", "v", ",", "wc"}], "]"}], "[", 
+         RowBox[{"[", "k", "]"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"k", ",", "1", ",", 
+          RowBox[{"Length", "[", "res", "]"}]}], "}"}]}], "]"}], ",", 
+      RowBox[{"PlotMarkers", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\[FilledSmallCircle]\>\"", ",", "6"}], "}"}]}], ",", 
+      RowBox[{"PlotRange", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0.02"}], "}"}]}], ",", 
+      RowBox[{"PlotStyle", "\[Rule]", 
+       RowBox[{"Thickness", "[", "0.003", "]"}]}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"v", ",", "0.1", ",", "10"}], "}"}]}], "]"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "play", " ", "with", " ", "the", " ", "dynamic", " ", "diagram", " ", "to",
+     " ", "collapse", " ", "all", " ", "data", " ", "and", " ", "try", " ", 
+    "to", " ", "find", " ", "the", " ", "best", " ", "critical", " ", 
+    "exponent", " ", "for", " ", "collapsing"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.74626788903832*^9, 3.7462679151501503`*^9}}]
+}, Open  ]]
 }, Open  ]]
 },
 WindowSize->{808, 751},
@@ -160,9 +463,20 @@ Cell[3323, 103, 357, 9, 28, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[3717, 117, 101, 1, 44, "Subsection"],
-Cell[3821, 120, 103, 1, 35, "Subsubsection"],
-Cell[3927, 123, 104, 1, 29, "Subsubsection"],
-Cell[4034, 126, 108, 1, 29, "Subsubsection"]
+Cell[CellGroupData[{
+Cell[3843, 122, 103, 1, 35, "Subsubsection"],
+Cell[3949, 125, 7393, 211, 420, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11379, 341, 104, 1, 35, "Subsubsection"],
+Cell[11486, 344, 180, 5, 28, "Input"],
+Cell[11669, 351, 387, 10, 28, "Input"],
+Cell[12059, 363, 899, 26, 63, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12995, 394, 108, 1, 35, "Subsubsection"],
+Cell[13106, 397, 1309, 32, 97, "Input"]
+}, Open  ]]
 }, Open  ]]
 }
 ]
