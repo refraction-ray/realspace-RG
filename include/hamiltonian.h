@@ -2,6 +2,7 @@
 #define HAMILTONIAN_H
 
 #include <vector>
+#include <algorithm>
 #include <armadillo>
 #include <cmath>
 
@@ -12,7 +13,7 @@
 # define GR 0.618033989
 
 typedef double (*hmpointer) (arma::uword, arma::uword, arma::uword, std::vector<double>);// vec(0) hopping, vec(1) characteristic amplitude of potential
-typedef double (*lenpointer) (double); // function return localization length
+typedef double (*lenpointer) (std::vector<double> hm_param); // function return localization length
 
 double avco(arma::vec & state); // calculate the position expectation value given wave function
 std::vector<int> get_no_pos();
@@ -22,8 +23,8 @@ double random_h (arma::uword i, arma::uword j, arma::uword size, std::vector<dou
 double linear_h (arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double qp_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 
-double random_len(double W);
-double qp_len(double W);
+double random_len(std::vector<double> hm_param);
+double qp_len(std::vector<double> hm_param);
 
 class Hamiltonian
 {

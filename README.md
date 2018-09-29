@@ -42,7 +42,7 @@ basic options: `-i <input/file/path>`, `-o <output/file/path>`, for file io path
 
 The Hamiltonian used in current version has NNN hopping and both type of potentials (random vs. quasiperiodic). The measures input used in current version is default `get_measures()` which includes three quantities:  average-length ratio, max-length ratio and entanglement entropy density.
 
-The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-poetntial system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`.
+The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`.
 
 To use it on supercomputers with slurm. One can first write a bash script as `run.sh`
 

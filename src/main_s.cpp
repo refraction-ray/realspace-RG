@@ -8,13 +8,14 @@ int main(int argc, char** argv)
     srand((unsigned)time(0));
     char inputpath[INPUT], outputpath[INPUT];
     lenpointer lenf=qp_len;
+
     arg_parser(inputpath,outputpath,lenf,argc,argv);
 
 
     vector<double> data(INPUT);
     vector<int> signal(2);
 
-    signal=readin(inputpath, data);
+    signal = readin(inputpath, data);
     if(signal[0]==0)
     {
         return 1;
@@ -29,11 +30,14 @@ int main(int argc, char** argv)
         for(int j=0;j<signal[0]/signal[1]-3;j++)
         {
             a[j] = data[i*signal[0]/signal[1]+j];
+
         }
 
         vector<double> restemp;
+
         restemp = generate_measures(qp_h, a, lenf, data[(i+1)*signal[0]/signal[1]-3], data[(i+1)*signal[0]/signal[1]-2],
                 data[(i+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos());
+
         a.push_back(data[(i+1)*signal[0]/signal[1]-3]);
         a.push_back(data[(i+1)*signal[0]/signal[1]-2]);
         a.push_back(data[(i+1)*signal[0]/signal[1]-1]);

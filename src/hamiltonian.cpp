@@ -24,12 +24,12 @@ double random_h (uword i, uword j, uword size, std::vector<double> param)
     {
         hop2 = 0;
     }
-    double ele=0;
+    double ele = 0;
     switch (std::abs((int)(i-j)))
     {
         case 0:
         {
-            ele=amp*rand()/(double)(RAND_MAX);
+            ele = amp*rand()/(double)(RAND_MAX);
             break;
         }
 
@@ -48,9 +48,9 @@ double random_h (uword i, uword j, uword size, std::vector<double> param)
     return ele;
 }
 
-double random_len(double W)
+double random_len(std::vector<double> hm_param)
 {
-    return 2/log(1+W*W);
+    return 2/log(1+hm_param[1]*hm_param[1]);
 }
 
 double qp_h(uword i, uword j, uword size, std::vector<double> param)
@@ -103,11 +103,10 @@ double qp_h(uword i, uword j, uword size, std::vector<double> param)
 
 }
 
-double qp_len(double W)
+double qp_len(std::vector<double> hm_param)
 {
-    return 1/log(W/2);
+    return std::min(1/log(hm_param[1]/2), 2/log(1+hm_param[5]*hm_param[5]+GAP));
 }
-
 
 
 double linear_h (uword i, uword j, uword size, std::vector<double> param)
@@ -132,7 +131,7 @@ double linear_h (uword i, uword j, uword size, std::vector<double> param)
     return ele;
 }
 
-std::vector<int> get_no_pos()
+std::vector<int> get_no_pos() // the model has no random sample parameter like phi in qp
 {
     std::vector<int> pos(1);
     return pos;
@@ -189,7 +188,7 @@ void Hamiltonian::state_init(hmpointer hm, std::vector<double> hm_param, lenpoin
         position[i] = ( ss(dd(i)) );
     }
 
-    length = lenpt(hm_param[1]);
+    length = lenpt(hm_param);
 }
 
 
