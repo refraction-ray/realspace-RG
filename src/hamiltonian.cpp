@@ -105,7 +105,16 @@ double qp_h(uword i, uword j, uword size, std::vector<double> param)
 
 double qp_len(std::vector<double> hm_param)
 {
-    return std::min(1/log(hm_param[1]/2), 2/log(1+hm_param[5]*hm_param[5]+GAP));
+    double qp_ll = (1/log(hm_param[1]/2));
+    double r_ll = 2/log(1+hm_param[5]*hm_param[5]+GAP);
+    if (qp_ll <= 0)
+    {
+        return r_ll;
+    }
+    else
+    {
+        return std::min(qp_ll, r_ll);
+    }
 }
 
 
