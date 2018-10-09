@@ -50,7 +50,7 @@ double random_h (uword i, uword j, uword size, std::vector<double> param)
 
 double random_len(std::vector<double> hm_param)
 {
-    return 2/log(1+hm_param[1]*hm_param[1]);
+    return 2/log(1+hm_param[5]*hm_param[5]+GAP);
 }
 
 double qp_h(uword i, uword j, uword size, std::vector<double> param)
@@ -105,16 +105,14 @@ double qp_h(uword i, uword j, uword size, std::vector<double> param)
 
 double qp_len(std::vector<double> hm_param)
 {
-    double qp_ll = (1/log(hm_param[1]/2));
+
     double r_ll = 2/log(1+hm_param[5]*hm_param[5]+GAP);
-    if (qp_ll <= 0)
+    if (hm_param[1] <= 2+GAP)
     {
         return r_ll;
     }
-    else
-    {
-        return std::min(qp_ll, r_ll);
-    }
+    double qp_ll = 1/log(hm_param[1]/2);
+    return qp_ll*r_ll/(qp_ll+r_ll);
 }
 
 
