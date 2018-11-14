@@ -30,7 +30,7 @@ With at most some small modifications on makefile, the project should work on al
 
 ## Physics picture
 
-The original idea of this algorithm is from these two papers: 1) A. C. Potter, R. Vasseur, and S. A. Parameswaran, Phys. Rev. X 5, 031033 (2015) 2)  P. T. Dumitrescu, R. Vasseur, and A. C. Potter, Phys. Rev. Lett. 119, 110604 (2017). They proposed a new approach of RG in real space to address the universality of  MBL-thermal criticality. By adopted their method and made some crucial updates, we generalized the novel RSRG approach to more general settings and specifically studied the MBL transition induced by quasi-periodic potentials. This method can reveal the resonace structure and entanglement entropy of systems near MBL critical points and one can extract critical exponents from the results. This project is the backend of the paper **arXiv: 1805.05958**. If you utilize this project in your study, please cite this paper.
+The original idea of this algorithm is from these two papers: 1) A. C. Potter, R. Vasseur, and S. A. Parameswaran, Phys. Rev. X **5**, 031033 (2015) 2)  P. T. Dumitrescu, R. Vasseur, and A. C. Potter, Phys. Rev. Lett. **119**, 110604 (2017). They proposed a new approach of RG in real space to address the universality of  MBL-thermal criticality. By adopted their method and made some crucial updates, we generalized the novel RSRG approach to more general settings and specifically studied the MBL transition induced by quasi-periodic potentials. This method can reveal the resonace structure and entanglement entropy of systems near MBL critical points and one can extract critical exponents from the results. This project is the backend of the paper Phys. Rev. Lett. **121**, 206601 (2018). If you utilize this project in your study, please cite this paper.
 
 ## Usage
 
@@ -61,11 +61,11 @@ This project is desinged with cosideration on extensibility and scalability. So 
 
 ## How to cite
 
-S.-X. Zhang and H. Yao, *Universal properties of many-body localization transitions in quasiperiodic systems*, arXiv: 1805.05958 (2018).
+S.-X. Zhang and H. Yao, Phys. Rev. Lett. **121**, 206601 (2018).
 
 ## References
 
-*We list arXiv version of the papers mentioned above such that everyone can access them.*
+*We list arXiv version of the papers mentioned above so that everyone can access them.*
 
 * [Universal properties of many-body localization transitions in quasiperiodic systems](https://arxiv.org/abs/1805.05958)
 
