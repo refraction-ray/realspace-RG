@@ -5,10 +5,12 @@ int main(int argc, char** argv)
 {
     using namespace std;
 
-    char inputpath[INPUT], outputpath[INPUT];
-    lenpointer lenf=qp_len;
-    arg_parser(inputpath,outputpath,lenf,argc,argv);
+    char inputpath[INPUT], outputpath[INPUT], distoutputpath[INPUT];
+    lenpointer lenf;
+    bool dist = false;
+    arg_parser(inputpath,outputpath,dist,distoutputpath,lenf,argc,argv);
 
+    string dist_header(distoutputpath);
     vector<double> data(INPUT);
     vector<int> signal(2);
 
@@ -74,8 +76,13 @@ int main(int argc, char** argv)
                 a[j] = data[r*signal[0]/signal[1]+j];
             }
             vector<double> restemp;
-            restemp=generate_measures(qp_h, a, lenf, data[(r+1)*signal[0]/signal[1]-3], data[(r+1)*signal[0]/signal[1]-2],
-                                  data[(r+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos());
+
+            stringstream ss;
+            ss<<"r"<<rank<<"_";
+            dist_header = dist_header+ss.str();
+            restemp = generate_measures(qp_h, a, lenf, data[(r+1)*signal[0]/signal[1]-3], data[(r+1)*signal[0]/signal[1]-2],
+                                  data[(r+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos(),
+                                  dist, dist_header, get_param_inpath());
 
             a.push_back(data[(r+1)*signal[0]/signal[1]-3]);
             a.push_back(data[(r+1)*signal[0]/signal[1]-2]);

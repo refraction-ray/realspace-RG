@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cmath>
+#include <fstream>
 #include <iostream>
 #include <numeric> // for accumulate function compatibility
 #include "fio.h"
@@ -47,8 +48,12 @@ typedef double (Model::*measurement) (int);
 
 
 std::vector<measurement> get_measures();
+std::vector<int> get_param_inpath();
 
 std::vector<double> generate_measures(hmpointer hm, std::vector<double> hm_param, lenpointer lenpt,
-                         int size, double V, int repeat, std::vector< measurement > measures=get_measures(),  std::vector<int> random_pos = get_no_pos());
+                         int size, double V, int repeat, std::vector< measurement > measures,
+                         std::vector<int> random_pos, bool dist, std::string, std::vector<int> param_path);
+/*the main function of the package*/
+
 
 #endif //RSRG_H

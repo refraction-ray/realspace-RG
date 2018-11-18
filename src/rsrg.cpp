@@ -339,14 +339,49 @@ vector<measurement> get_measures()
     return default_measures;
 }
 
+
+vector<int> get_param_inpath()
+{
+    std::vector<int> result(6,0);
+    result[1]=1;
+    result[5]=1;
+    return result;
+
+}
+
 vector<double> generate_measures(hmpointer hm, vector<double> hm_param, lenpointer lenpt,
-        int size, double V, int repeat, vector< measurement > measures, vector<int> random_pos)
+        int size, double V, int repeat, vector< measurement > measures, vector<int> random_pos,
+        bool dist, std::string pathheader, vector<int> param_path )
 {
     Hamiltonian hamiltonian(size);
     vector< vector<double> > results;
     int n_measures = measures.size();
     results.resize(n_measures, vector<double>(repeat));
     vector<double> average_results(2*n_measures);
+    vector<double> out_obs;
+    int io_period=2000;
+    out_obs.reserve(n_measures*io_period);
+
+    std::string fullpath;
+
+    if (dist==true)
+    {
+        std::stringstream ss;
+        for (int k=0; k<param_path.size(); k++)
+        {
+            if(param_path[k]>0)
+            {
+                ss<<hm_param[k]<<"-";
+            }
+
+        }
+        ss <<"L"<<size<<"-V"<<V<<"-.txt";
+        string end = ss.str();
+        fullpath = pathheader+end;
+    }
+
+
+
     for(int i=0;i<repeat;i++)
     {
         if (LOG == true)
@@ -359,11 +394,27 @@ vector<double> generate_measures(hmpointer hm, vector<double> hm_param, lenpoint
         model.rginit(hamiltonian, V);
         model.fixedpoint();
 
+
+
         for(int j=0;j<n_measures;j++)
         {
             results[j][i] = (model.*(measures[j]))(-1);
+
+            if (dist == true)
+            {
+                out_obs.push_back(results[j][i]);
+            }
+
         }
 
+        if (dist == true && ((i+1)%io_period == 0 ||i==repeat-1 ) )
+        {
+            std::ofstream fout;
+            fout.open(fullpath, std::ios::app);
+            fprint_1d(out_obs,fout);
+            out_obs.clear();
+            out_obs.reserve(n_measures*io_period);
+        }
 
     }
 

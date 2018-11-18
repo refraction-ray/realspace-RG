@@ -6,12 +6,13 @@ int main(int argc, char** argv)
 {
     using namespace std;
     srand((unsigned)time(0));
-    char inputpath[INPUT], outputpath[INPUT];
-    lenpointer lenf=qp_len;
+    char inputpath[INPUT], outputpath[INPUT], distoutputpath[INPUT];
+    bool dist = false;
+    lenpointer lenf;
 
-    arg_parser(inputpath,outputpath,lenf,argc,argv);
+    arg_parser(inputpath,outputpath,dist,distoutputpath,lenf,argc,argv);
 
-
+    string dist_header(distoutputpath);
     vector<double> data(INPUT);
     vector<int> signal(2);
 
@@ -36,7 +37,7 @@ int main(int argc, char** argv)
         vector<double> restemp;
 
         restemp = generate_measures(qp_h, a, lenf, data[(i+1)*signal[0]/signal[1]-3], data[(i+1)*signal[0]/signal[1]-2],
-                data[(i+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos());
+                data[(i+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos(), dist, dist_header, get_param_inpath());
 
         a.push_back(data[(i+1)*signal[0]/signal[1]-3]);
         a.push_back(data[(i+1)*signal[0]/signal[1]-2]);

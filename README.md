@@ -9,7 +9,7 @@ $ cd realspace-RG
 $ make 
 # usage
 $ bin/rsrg -i utils/input.txt -o utils/output.txt
-$ mpirun -np 3 bin/rsrgmpi -i utils/input.txt -o utils/output.txt
+$ mpirun -np 3 bin/rsrgmpi -i utils/input.txt -o utils/output.txt -r -d ./
 ```
 
 ## Install and requirements
@@ -38,17 +38,21 @@ One can only run the program as a demo on his or her desktop or laptop. To get s
 
 basic options: `-i <input/file/path>`, `-o <output/file/path>`, for file io pathes. If no path specified, the default path is `input.txt` and `output.txt`, if there is file with the same name, they will be override.
 
-`-r` or `-q` for different scheme to calculate the localization length. `-q` is set by default, which is suitable for quasiperiodic system while `-r` is for quenched disorder system.
+`-r` or `-q` for different scheme to calculate the localization length. `-q` is set by default, which is suitable for quasiperiodic system (and system with both random and quasiperiodic potentials) while `-r` is for quenched disorder system.
+
+`-d` is for further detail enumeration of observables instead of simple average information. `-d <path>` can generate multiple txt files with detail values of observables for each disorder configuration. Such data can be further analysed on its distributions.
 
 The Hamiltonian used in current version has NNN hopping and both type of potentials (random vs. quasiperiodic). The measures input used in current version is default `get_measures()` which includes three quantities:  average-length ratio, max-length ratio and entanglement entropy density.
 
-The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`.
+The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`. The format of dist file, arranged three data a group are values of mean-length, max-length and entanglement-entropy for each disorder configuration.
+
+## Workflow
 
 To use it on supercomputers with slurm. One can first write a bash script as `run.sh`
 
 ```bash
 #!/bin/bash
-srun -n 80 -N 4 bin/rsrgmpi -i utils/input.txt -o utils/output.txt
+srun -n 80 -N 4 bin/rsrgmpi -i utils/input.txt -o utils/output.txt -q -d data/
 ```
 
 where 80 should be the number of lines in inputfile **plus 1**, and 4 is the number of total nodes you want to utilize. To submit the task, just use `sbatch -N 4 run.sh` .

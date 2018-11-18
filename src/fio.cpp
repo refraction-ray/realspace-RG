@@ -35,23 +35,29 @@ std::vector<int> readin (const char*  filename, std::vector<double>& data)
 }
 
 
-void arg_parser(char* inputpath, char* outputpath, lenpointer lenf, int argc,char** argv )
+void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, lenpointer& lenf, int argc,char** argv )
 {
-    const char *optString = "i:o:rq";
+    const char *optString = "i:o:d:rq";
     int opt=0;
     opt = getopt( argc, argv, optString );
     strcpy(inputpath, "input.txt");
     strcpy(outputpath,"output.txt");
+    strcpy(distoutputpath,"");
     lenf = qp_len;
 
     while( opt != -1 ) {
         switch( opt ) {
             case 'i':
-                strcpy(inputpath, optarg); /* true */
+                strcpy(inputpath, optarg);
                 break;
 
             case 'o':
                 strcpy(outputpath, optarg);
+                break;
+
+            case 'd':
+                strcpy(distoutputpath, optarg);
+                dist = true;
                 break;
 
             case 'r':

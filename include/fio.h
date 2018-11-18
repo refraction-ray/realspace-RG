@@ -12,7 +12,8 @@
 #define INPUT 1024
 
 std::vector<int> readin (const char*  filename, std::vector<double> & data);
-void arg_parser(char* inputpath, char* outputpath, lenpointer lenf, int argc,char** argv );
+void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath,
+        lenpointer& lenf, int argc,char** argv );
 
 template <class T>
 void print_1d(std::vector<T> &aa)
