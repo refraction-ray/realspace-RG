@@ -57,7 +57,9 @@ srun -n 80 -N 4 bin/rsrgmpi -i utils/input.txt -o utils/output.txt -q -d data/
 
 where 80 should be the number of lines in inputfile **plus 1**, and 4 is the number of total nodes you want to utilize. To submit the task, just use `sbatch -N 4 run.sh` .
 
-For more scripts in mathematica to generate input files and extract content from output files, together with some basic analysis, see `utils/`.
+If one want to utilize the massive data with `-d` option for each disorder configuration, one should utilize the python3 script in `utils/` to merge files and generate simple data report for further regression or visulization analysis.
+
+For more scripts in mathematica to generate input files and extract content from output files, together with some basic critical behavior analysis, see `utils/`.
 
 ## Development
 
