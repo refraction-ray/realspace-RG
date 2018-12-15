@@ -1,3 +1,6 @@
+'''
+python3 supported, no external modules needed
+'''
 from os import listdir, rename
 from os.path import isfile, join
 import re

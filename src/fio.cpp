@@ -35,15 +35,18 @@ std::vector<int> readin (const char*  filename, std::vector<double>& data)
 }
 
 
-void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, lenpointer& lenf, int argc,char** argv )
+void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, hmpointer& hmf,
+        lenpointer& lenf, std::vector<int>& random_pos, int argc,char** argv )
 {
-    const char *optString = "i:o:d:rq";
+    const char *optString = "i:o:d:rqp";
     int opt=0;
     opt = getopt( argc, argv, optString );
     strcpy(inputpath, "input.txt");
     strcpy(outputpath,"output.txt");
     strcpy(distoutputpath,"");
     lenf = qp_len;
+    hmf = qp_h;
+    random_pos = get_qp_pos();
 
     while( opt != -1 ) {
         switch( opt ) {
@@ -66,6 +69,12 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
 
             case 'q':
                 lenf = qp_len;
+                break;
+
+            case 'p':
+                random_pos = get_no_pos();
+                hmf = two_band_h;
+                lenf = two_band_len;
                 break;
 
             default:

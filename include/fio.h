@@ -13,7 +13,7 @@
 
 std::vector<int> readin (const char*  filename, std::vector<double> & data);
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath,
-        lenpointer& lenf, int argc,char** argv );
+        hmpointer& hmf, lenpointer& lenf, std::vector<int>& random_pos, int argc,char** argv );
 
 template <class T>
 void print_1d(std::vector<T> &aa)

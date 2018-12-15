@@ -46,6 +46,10 @@ The Hamiltonian used in current version has NNN hopping and both type of potenti
 
 The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`. The format of dist file, arranged three data a group are values of mean-length, max-length and entanglement-entropy for each disorder configuration.
 
+### New format on pseudorandom models (experimental)
+
+The format of input file `lower-band-width`, `upper-band-width`,`middle-gap-width`,`no-transfer-probability`,`system-size`,`interaction`,`repeat-times`. To explore this model, use the command option `-p` instead of `-q` (by default) or `-r`.
+
 ## Workflow
 
 To use it on supercomputers with slurm. One can first write a bash script as `run.sh`

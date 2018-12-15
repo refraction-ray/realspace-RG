@@ -9,8 +9,10 @@ int main(int argc, char** argv)
     char inputpath[INPUT], outputpath[INPUT], distoutputpath[INPUT];
     bool dist = false;
     lenpointer lenf;
+    hmpointer hmf;
+    std::vector<int> random_pos;
 
-    arg_parser(inputpath,outputpath,dist,distoutputpath,lenf,argc,argv);
+    arg_parser(inputpath,outputpath,dist,distoutputpath,hmf,lenf,random_pos,argc,argv);
 
     string dist_header(distoutputpath);
     vector<double> data(INPUT);
@@ -36,8 +38,8 @@ int main(int argc, char** argv)
 
         vector<double> restemp;
 
-        restemp = generate_measures(qp_h, a, lenf, data[(i+1)*signal[0]/signal[1]-3], data[(i+1)*signal[0]/signal[1]-2],
-                data[(i+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos(), dist, dist_header, get_param_inpath());
+        restemp = generate_measures(hmf, a, lenf, data[(i+1)*signal[0]/signal[1]-3], data[(i+1)*signal[0]/signal[1]-2],
+                data[(i+1)*signal[0]/signal[1]-1], get_measures(), random_pos, dist, dist_header, get_param_inpath());
 
         a.push_back(data[(i+1)*signal[0]/signal[1]-3]);
         a.push_back(data[(i+1)*signal[0]/signal[1]-2]);

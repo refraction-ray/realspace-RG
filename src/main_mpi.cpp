@@ -8,7 +8,9 @@ int main(int argc, char** argv)
     char inputpath[INPUT], outputpath[INPUT], distoutputpath[INPUT];
     lenpointer lenf;
     bool dist = false;
-    arg_parser(inputpath,outputpath,dist,distoutputpath,lenf,argc,argv);
+    hmpointer hmf;
+    std::vector<int> random_pos;
+    arg_parser(inputpath,outputpath,dist,distoutputpath,hmf,lenf,random_pos,argc,argv);
 
     string dist_header(distoutputpath);
     vector<double> data(INPUT);
@@ -80,8 +82,8 @@ int main(int argc, char** argv)
             stringstream ss;
             ss<<"r"<<rank<<"_";
             dist_header = dist_header+ss.str();
-            restemp = generate_measures(qp_h, a, lenf, data[(r+1)*signal[0]/signal[1]-3], data[(r+1)*signal[0]/signal[1]-2],
-                                  data[(r+1)*signal[0]/signal[1]-1], get_measures(), get_qp_pos(),
+            restemp = generate_measures(hmf, a, lenf, data[(r+1)*signal[0]/signal[1]-3], data[(r+1)*signal[0]/signal[1]-2],
+                                  data[(r+1)*signal[0]/signal[1]-1], get_measures(), random_pos,
                                   dist, dist_header, get_param_inpath());
 
             a.push_back(data[(r+1)*signal[0]/signal[1]-3]);

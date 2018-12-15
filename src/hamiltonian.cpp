@@ -53,7 +53,7 @@ double random_len(std::vector<double> hm_param)
     return 2/log(1+hm_param[5]*hm_param[5]+GAP);
 }
 
-double qp_h(uword i, uword j, uword size, std::vector<double> param)
+double qp_h(uword i, uword j, uword size, std::vector<double> param) //hamiltonian with both random and quasi potential
 {
     double hop = param[0];
     double amp = param[1];
@@ -115,6 +115,50 @@ double qp_len(std::vector<double> hm_param)
     return qp_ll*r_ll/(qp_ll+r_ll);
 }
 
+double two_band_h (uword i, uword j, uword size, std::vector<double> param)
+{
+    if ( i != j)
+    {
+        return 0;
+    }
+    double band1 = param[0];
+    double  band2 = param[1];
+    double gap1 = param[2];
+    double criteria = param[3];//eg. the probability to stay on the same band, 0.005
+    static int lasttime = 0;
+    double p_transfer = rand()/(double)(RAND_MAX);
+    double p_pos = rand()/(double)(RAND_MAX);
+    if (p_transfer>criteria)
+    {
+        if (lasttime == 0)
+        {
+            lasttime = 1;
+        }
+        else
+        {
+            lasttime = 0;
+        }
+    }
+
+    double ele;
+
+    if (lasttime == 1)
+    {
+        ele = band1+gap1+band2*p_pos;
+    }
+    else
+    {
+        ele = band1*p_pos;
+    }
+
+    return ele;
+}
+
+double two_band_len(std::vector<double> hm_param)
+{
+    double weff = hm_param[0]+hm_param[1]+hm_param[2];
+    return 2/log(1+weff*weff+GAP);
+}
 
 double linear_h (uword i, uword j, uword size, std::vector<double> param)
 {
