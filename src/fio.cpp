@@ -35,8 +35,25 @@ std::vector<int> readin (const char*  filename, std::vector<double>& data)
 }
 
 
+std::vector<int> get_param_inpath()
+{
+    std::vector<int> result(6,0);
+    result[1]=1;
+    result[5]=1;
+    return result;
+
+}
+
+std::vector<int> get_param_inpath_pr()
+{
+    std::vector<int> result(4,1);
+    return result;
+
+}
+
+
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, hmpointer& hmf,
-        lenpointer& lenf, std::vector<int>& random_pos, int argc,char** argv )
+        lenpointer& lenf, std::vector<int>& random_pos, std::vector<int>& param_path, int argc,char** argv )
 {
     const char *optString = "i:o:d:rqp";
     int opt=0;
@@ -47,6 +64,7 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
     lenf = qp_len;
     hmf = qp_h;
     random_pos = get_qp_pos();
+    param_path = get_param_inpath();
 
     while( opt != -1 ) {
         switch( opt ) {
@@ -75,6 +93,7 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
                 random_pos = get_no_pos();
                 hmf = two_band_h;
                 lenf = two_band_len;
+                param_path = get_param_inpath_pr();
                 break;
 
             default:

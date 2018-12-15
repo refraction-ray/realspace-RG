@@ -11,9 +11,14 @@
 
 #define INPUT 1024
 
+std::vector<int> get_param_inpath();
+std::vector<int> get_param_inpath_pr();
+
+
 std::vector<int> readin (const char*  filename, std::vector<double> & data);
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath,
-        hmpointer& hmf, lenpointer& lenf, std::vector<int>& random_pos, int argc,char** argv );
+        hmpointer& hmf, lenpointer& lenf, std::vector<int>& random_pos, std::vector<int>& param_path,
+        int argc,char** argv );
 
 template <class T>
 void print_1d(std::vector<T> &aa)

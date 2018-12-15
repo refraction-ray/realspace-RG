@@ -340,14 +340,7 @@ vector<measurement> get_measures()
 }
 
 
-vector<int> get_param_inpath()
-{
-    std::vector<int> result(6,0);
-    result[1]=1;
-    result[5]=1;
-    return result;
 
-}
 
 vector<double> generate_measures(hmpointer hm, vector<double> hm_param, lenpointer lenpt,
         int size, double V, int repeat, vector< measurement > measures, vector<int> random_pos,

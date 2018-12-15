@@ -11,8 +11,9 @@ int main(int argc, char** argv)
     lenpointer lenf;
     hmpointer hmf;
     std::vector<int> random_pos;
+    std::vector<int> param_path;
 
-    arg_parser(inputpath,outputpath,dist,distoutputpath,hmf,lenf,random_pos,argc,argv);
+    arg_parser(inputpath,outputpath,dist,distoutputpath,hmf,lenf,random_pos,param_path, argc,argv);
 
     string dist_header(distoutputpath);
     vector<double> data(INPUT);
@@ -39,7 +40,7 @@ int main(int argc, char** argv)
         vector<double> restemp;
 
         restemp = generate_measures(hmf, a, lenf, data[(i+1)*signal[0]/signal[1]-3], data[(i+1)*signal[0]/signal[1]-2],
-                data[(i+1)*signal[0]/signal[1]-1], get_measures(), random_pos, dist, dist_header, get_param_inpath());
+                data[(i+1)*signal[0]/signal[1]-1], get_measures(), random_pos, dist, dist_header, param_path);
 
         a.push_back(data[(i+1)*signal[0]/signal[1]-3]);
         a.push_back(data[(i+1)*signal[0]/signal[1]-2]);

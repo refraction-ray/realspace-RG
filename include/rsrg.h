@@ -48,7 +48,7 @@ typedef double (Model::*measurement) (int);
 
 
 std::vector<measurement> get_measures();
-std::vector<int> get_param_inpath();
+
 
 std::vector<double> generate_measures(hmpointer hm, std::vector<double> hm_param, lenpointer lenpt,
                          int size, double V, int repeat, std::vector< measurement > measures,
