@@ -160,6 +160,23 @@ double two_band_len(std::vector<double> hm_param)
     return 2/log(1+weff*weff+GAP);
 }
 
+double tbath_h(uword i, uword j, uword size, std::vector<double> param)
+{
+    // 0 NN-hopping 1 qp-potential-amplitude 2 qp-potential-wavevector 3 qp-potential-sample-window
+    // 4 NNN-hopping 5 random-onsite-potential 6 bath-size
+   int bathsize = (int) param[6];
+   if ( i<bathsize || j<bathsize )
+   {
+        if (i==j){ return GAP*rand()/(double)(RAND_MAX);}
+        else {return 0;}
+   }
+   else
+   {
+        return qp_h(i, j, size, param);
+   }
+
+}
+
 double linear_h (uword i, uword j, uword size, std::vector<double> param)
 {
     double hop = param[0];

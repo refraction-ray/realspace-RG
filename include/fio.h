@@ -13,6 +13,7 @@
 
 std::vector<int> get_param_inpath();
 std::vector<int> get_param_inpath_pr();
+std::vector<int> get_param_inpath_tb();
 
 
 std::vector<int> readin (const char*  filename, std::vector<double> & data);

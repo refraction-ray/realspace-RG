@@ -50,6 +50,10 @@ The format of the input.txt, every line is for one process, the format is `NN-ho
 
 The format of input file `lower-band-width`, `upper-band-width`,`middle-gap-width`,`no-transfer-probability`,`system-size`,`interaction`,`repeat-times`. To explore this model, use the command option `-p` instead of `-q` (by default) or `-r`.
 
+### New format on model with thermal bath inclusion (experimental)
+
+The format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential thermal-inclusion-size system-size interaction repeat-times` . The model is the same as the quasiperiodic model except the fact that the first `thermal-inclusion-size` of sites share the same chemical potential and thus consist of a thermal bath. Use `-t` flag  for this model. Note: the short options `r,q,p,t` are exclusive and only one can be used for the computations.
+
 ## Workflow
 
 To use it on supercomputers with slurm. One can first write a bash script as `run.sh`

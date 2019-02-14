@@ -352,7 +352,7 @@ vector<double> generate_measures(hmpointer hm, vector<double> hm_param, lenpoint
     results.resize(n_measures, vector<double>(repeat));
     vector<double> average_results(2*n_measures);
     vector<double> out_obs;
-    int io_period=2000;
+    int const io_period=2000;
     out_obs.reserve(n_measures*io_period);
 
     std::string fullpath;

@@ -58,7 +58,7 @@ std::vector<double> generate_measures(hmpointer hm, std::vector<double> hm_param
 hm: the hamiltonian function pointer for single-particle hamiltonian matrix elements
 hm_param: vector of Hamiltonian paramters
 lenpt: function pointer for localization length function
-size: susyem size
+size: system size
 V: typical interaction value
 repeat: numbers of configurations
 measures: vector of function pointer for different observables

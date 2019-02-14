@@ -39,23 +39,31 @@ std::vector<int> get_param_inpath()
 {
     std::vector<int> result(6,0);
     result[1]=1;
+    result[2]=1;
     result[5]=1;
     return result;
 
 }
 
-std::vector<int> get_param_inpath_pr()
+std::vector<int> get_param_inpath_pr() // used for two band model with all parameters in file path, only worked with -d
 {
     std::vector<int> result(4,1);
     return result;
 
 }
 
+std::vector<int> get_param_inpath_tb()
+{
+    const int arr[] = {0,1,1,0,1,1,1};
+    std::vector<int> result (arr, arr + sizeof(arr) / sizeof(arr[0]) );
+    return result;
+}
+
 
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, hmpointer& hmf,
         lenpointer& lenf, std::vector<int>& random_pos, std::vector<int>& param_path, int argc,char** argv )
 {
-    const char *optString = "i:o:d:rqp";
+    const char *optString = "i:o:d:rqpt";
     int opt=0;
     opt = getopt( argc, argv, optString );
     strcpy(inputpath, "input.txt");
@@ -95,6 +103,11 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
                 lenf = two_band_len;
                 param_path = get_param_inpath_pr();
                 break;
+
+            case 't':
+                hmf = tbath_h;
+                lenf = qp_len;
+                param_path = get_param_inpath_tb();
 
             default:
                 /* You won't actually get here. */
