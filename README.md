@@ -38,13 +38,13 @@ One can only run the program as a demo on his or her desktop or laptop. To get s
 
 basic options: `-i <input/file/path>`, `-o <output/file/path>`, for file io pathes. If no path specified, the default path is `input.txt` and `output.txt`, if there is file with the same name, they will be override.
 
-`-r` or `-q` for different scheme to calculate the localization length. `-q` is set by default, which is suitable for quasiperiodic system (and system with both random and quasiperiodic potentials) while `-r` is for quenched disorder system.
+ `-q` is set by default, which is suitable for quasiperiodic system (and system with both random and quasiperiodic potentials as well as simple random systems).
 
 `-d` is for further detail enumeration of observables instead of simple average information. `-d <path>` can generate multiple txt files with detail values of observables for each disorder configuration. Such data can be further analysed on its distributions.
 
 The Hamiltonian used in current version has NNN hopping and both type of potentials (random vs. quasiperiodic). The measures input used in current version is default `get_measures()` which includes three quantities:  average-length ratio, max-length ratio and entanglement entropy density.
 
-The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential system-size interaction repeat-times` which is separated by space. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`. The format of dist file, arranged three data a group are values of mean-length, max-length and entanglement-entropy for each disorder configuration.
+The format of the input.txt, every line is for one process, the format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential system-size interaction repeat-times` which is separated by space. Note the random potential term can be negative -W. This means the potential window is from -W/2 to W/2 instead of 0 to W for positive values. The format of output file is similar, with several terms more append on each line. They are `mean-average-length-ratio std-average-length-ratio mean-max-length-ratio std-max-length-ratio mean-entanglement-entropy std-entanglement-entropy`. The format of dist file, arranged three data a group are values of mean-length, max-length and entanglement-entropy for each disorder configuration.
 
 ### New format on pseudorandom models (experimental)
 

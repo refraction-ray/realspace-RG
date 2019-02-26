@@ -63,7 +63,7 @@ std::vector<int> get_param_inpath_tb()
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, hmpointer& hmf,
         lenpointer& lenf, std::vector<int>& random_pos, std::vector<int>& param_path, int argc,char** argv )
 {
-    const char *optString = "i:o:d:rqpt";
+    const char *optString = "i:o:d:qpt";
     int opt=0;
     opt = getopt( argc, argv, optString );
     strcpy(inputpath, "input.txt");
@@ -89,11 +89,7 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
                 dist = true;
                 break;
 
-            case 'r':
-                lenf = random_len;
-                break;
-
-            case 'q':
+            case 'q': // default, no effect
                 lenf = qp_len;
                 break;
 

@@ -19,13 +19,12 @@ double avco(arma::vec & state); // calculate the position expectation value give
 std::vector<int> get_no_pos();
 std::vector<int> get_qp_pos();
 
-double random_h (arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
-double linear_h (arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
+//double random_h (arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double qp_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double two_band_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double tbath_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 
-double random_len(std::vector<double> hm_param);
+
 double qp_len(std::vector<double> hm_param);// suitable for case with mixed random and qp potentials
 double two_band_len(std::vector<double> hm_param);
 

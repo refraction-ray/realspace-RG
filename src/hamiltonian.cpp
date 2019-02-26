@@ -11,6 +11,10 @@ double avco (vec & state)
     return as_scalar(rp*lp);
 }
 
+/*
+
+//simple random hamiltonian and localization length is deprecated, please use the qp_h for mixed potential instead
+
 double random_h (uword i, uword j, uword size, std::vector<double> param)
 {
     double hop = param[0];
@@ -53,6 +57,8 @@ double random_len(std::vector<double> hm_param)
     return 2/log(1+hm_param[5]*hm_param[5]+GAP);
 }
 
+*/
+
 double qp_h(uword i, uword j, uword size, std::vector<double> param) //hamiltonian with both random and quasi potential
 {
     double hop = param[0];
@@ -83,7 +89,16 @@ double qp_h(uword i, uword j, uword size, std::vector<double> param) //hamiltoni
     {
         case 0:
         {
-            ele=amp*cos(wavevector*(double)i+phase)+ramp*rand()/(double)(RAND_MAX);
+            ele=amp*cos(wavevector*(double)i+phase);
+            if (ramp >= 0)
+            {
+                ele = ele + ramp*rand()/(double)(RAND_MAX);
+            }
+            else
+            {
+                ele = ele + ramp*(rand()/(double)(RAND_MAX)-0.5);
+            }
+
             break;
         }
 
@@ -105,15 +120,33 @@ double qp_h(uword i, uword j, uword size, std::vector<double> param) //hamiltoni
 
 double qp_len(std::vector<double> hm_param)
 {
+    double ramp = 0;
 
-    double r_ll = 2/log(1+hm_param[5]*hm_param[5]+GAP);
+    if (hm_param.size()>5)
+    {
+        ramp = hm_param[5];
+    }
+    else
+    {
+        ramp = 0;
+    }
+
+    double r_ll = 2/log(1+ramp*ramp+GAP);
     if (hm_param[1] <= 2+GAP)
     {
         return r_ll;
     }
-    double qp_ll = 1/log(hm_param[1]/2);
+
+    double qp_ll = 1/log(1+hm_param[1]/2+GAP);
+
+    if (ramp == 0)
+    {
+        return qp_ll;
+    }
+
     return qp_ll*r_ll/(qp_ll+r_ll);
 }
+
 
 double two_band_h (uword i, uword j, uword size, std::vector<double> param)
 {
@@ -177,27 +210,7 @@ double tbath_h(uword i, uword j, uword size, std::vector<double> param)
 
 }
 
-double linear_h (uword i, uword j, uword size, std::vector<double> param)
-{
-    double hop = param[0];
-    double amp = param[1];
-    double ele=0;
-    switch (std::abs((int)(i-j)))
-    {
-        case 0:
-        {
-            ele=amp*i;
-            break;
-        }
 
-        case 1:
-        {
-            ele=hop;
-            break;
-        }
-    }
-    return ele;
-}
 
 std::vector<int> get_no_pos() // the model has no random sample parameter like phi in qp
 {

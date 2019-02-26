@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "hamiltonian.h"
 
-#define INPUT 1024
+#define INPUT 4096
 
 std::vector<int> get_param_inpath();
 std::vector<int> get_param_inpath_pr();
