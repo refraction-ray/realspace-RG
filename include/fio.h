@@ -18,7 +18,7 @@ std::vector<int> get_param_inpath_tb();
 
 std::vector<int> readin (const char*  filename, std::vector<double> & data);
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath,
-        hmpointer& hmf, lenpointer& lenf, std::vector<int>& random_pos, std::vector<int>& param_path,
+        hmpointer& hmf, lenpointer& lenf, ranpospointer& random_pos, std::vector<int>& param_path,
         int argc,char** argv );
 
 template <class T>

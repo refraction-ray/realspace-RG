@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     lenpointer lenf;
     bool dist = false;
     hmpointer hmf;
-    std::vector<int> random_pos;
+    ranpospointer random_pos;
     std::vector<int> param_path;
     arg_parser(inputpath,outputpath,dist,distoutputpath,hmf,lenf,random_pos,param_path,argc,argv);
 

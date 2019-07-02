@@ -137,7 +137,7 @@ double qp_len(std::vector<double> hm_param)
         return r_ll;
     }
 
-    double qp_ll = 1/log(1+hm_param[1]/2+GAP);
+    double qp_ll = 1/log(hm_param[1]/2+GAP);
 
     if (ramp == 0)
     {
@@ -197,28 +197,177 @@ double tbath_h(uword i, uword j, uword size, std::vector<double> param)
 {
     // 0 NN-hopping 1 qp-potential-amplitude 2 qp-potential-wavevector 3 qp-potential-sample-window
     // 4 NNN-hopping 5 random-onsite-potential 6 bath-size
+    // minus bath size means that the bath is in the middle of the system
    int bathsize = (int) param[6];
-   if ( i<bathsize || j<bathsize )
+   if (bathsize>= 0)
    {
-        if (i==j){ return GAP*rand()/(double)(RAND_MAX);}
-        else {return 0;}
+       if ( i<bathsize || j<bathsize )
+       {
+           if (i==j){ return GAP*rand()/(double)(RAND_MAX);}
+           else {return 0;}
+       }
+       else
+       {
+           return qp_h(i, j, size, param);
+       }
    }
    else
    {
-        return qp_h(i, j, size, param);
+       bathsize = -bathsize;
+       if ( (i<size/2+bathsize/2 && i>=size/2-bathsize/2) || (j<size/2+bathsize/2 && j>=size/2-bathsize/2) )
+       {
+           if (i==j){ return GAP*rand()/(double)(RAND_MAX);}
+           else {return 0;}
+       }
+       else
+       {
+           return qp_h(i, j, size, param);
+       }
    }
+
 
 }
 
+double tridiag_h(uword i, uword j, uword size, std::vector<double> param) //hamiltonian with potential, NN and NN hopping
+// The form is taken as c1+c2 U[0,1]+c3cos(c4*i+c5)+ possible more cos triples + final 0 for mu, t and t2
+// eg. [-W,2W,0,0,0,Wqp,k,phi,0,0,0,0] is for model with on-site potential distributed within [-W,W] and NN quasiperiodic hopping
+{
+    if (std::abs((int)(i-j))>2)
+    {
+        return 0;
+    }
+    std::vector<double> mu, t, t2;
+    unsigned int nmu=0, nt=0, nt2=0; // number of cos triples
+    unsigned int s = param.size();
+
+    if (s %3 != 0)
+    {
+        throw std::invalid_argument("The number of elements for hamiltonian parameter is not 3n");
+    }
+    unsigned int ind=0;
+    while(ind < s)
+    {
+        if (ind >= 2 && ind%3 == 0){ nmu++; }
+        if ((ind%3 == 2 && param[ind] == 0))
+        {
+            ind++;
+            break;
+        }
+        mu.push_back(param[ind]);
+        ind++;
+    }
+
+    if(std::abs((int)(i-j))>0)
+    {
+        while(ind < s)
+        {
+            if (ind >= 2+3*(nmu+1) && ind%3 == 0){ nt++; }
+            if ((ind%3 == 2 && param[ind] == 0))
+            {
+                ind++;
+                break;
+            }
+            t.push_back(param[ind]);
+            ind++;
+        }
+    }
+
+    if(std::abs((int)(i-j))>1)
+    {
+        while(ind < s)
+        {
+            if (ind >= (2+3*(nmu+1)+3*(nt+1)) && ind%3 == 0){ nt2++; }
+            if ((ind%3 == 2 && param[ind] == 0))
+            {
+                ind++;
+                break;
+            }
+            t2.push_back(param[ind]);
+            ind++;
+        }
+
+    }
+
+    // initialize all Hamiltonian parameters
+    double ele = 0;
+    switch (std::abs((int)(i-j)))
+    {
+        case 0:
+            {
+            ele = mu[0];
+            ele += mu[1]*rand()/(double)(RAND_MAX);
+            for (auto cc=0;cc<nmu;cc++)
+            {
+                ele += mu[3*cc+2]*cos(mu[3*cc+3]*(double)i+mu[3*cc+4]);
+            }
+
+            break;
+            }
+        case 1:
+            {
+            unsigned int imix = std::min(i,j);
+            ele = t[0];
+            ele += t[1]*rand()/(double)(RAND_MAX);
+            for (auto cc=0;cc<nt;cc++)
+            {
+                ele += t[3*cc+2]*cos(t[3*cc+3]*(double)imix+t[3*cc+4]);
+            }
+
+            break;
+            }
+        case 2:
+            {
+            unsigned int imix = std::min(i,j);
+            ele = t2[0];
+            ele += t2[1]*rand()/(double)(RAND_MAX);
+            for (auto cc=0;cc<nt2;cc++)
+            {
+                ele += t2[3*cc+2]*cos(t2[3*cc+3]*(double)imix+t2[3*cc+4]);
+            }
+
+            break;
+            }
+    }
+
+    return ele;
+
+}
+
+double tridiag_len(std::vector<double> hm_param)
+{
+    double wqp=0, wr=0;
+    for (auto ind=2;ind<hm_param.size();ind+=3)
+    {
+        if(hm_param[ind]==0){break;}
+        wqp += pow(hm_param[ind],2);
+    }
+    wqp = sqrt(wqp);
+    wr = hm_param[1];
+
+    double r_ll = 2/log(1+wr*wr+GAP);
+    if (wqp <= 2+GAP)
+    {
+        return r_ll;
+    }
+
+    double qp_ll = 1/log(wqp/2+GAP);
+
+    if (wr == 0)
+    {
+        return qp_ll;
+    }
+
+    return qp_ll*r_ll/(qp_ll+r_ll);
+}
 
 
-std::vector<int> get_no_pos() // the model has no random sample parameter like phi in qp
+std::vector<int> get_no_pos(std::vector<double> hm_param) // the model has no random sample parameter like phi in qp
 {
     std::vector<int> pos(1);
     return pos;
 }
 
-std::vector<int> get_qp_pos()
+std::vector<int> get_qp_pos(std::vector<double> hm_param)
 {
     std::vector<int> pos(4,0);
     pos[3]=1;
@@ -226,16 +375,39 @@ std::vector<int> get_qp_pos()
 
 }
 
+std::vector<int> get_tridiag_pos(std::vector<double> hm_param) //TODO: need further change on random bit position
+{
+    std::vector<int> pos(hm_param.size(),0);
+    for (auto ind=4; ind<pos.size(); ind+=3)
+    {
+        if (hm_param[ind-2] != 0)
+        {
+            pos[ind]=1;
+        }
+    }
+    return pos;
+}
+
 void Hamiltonian::state_init(hmpointer hm, std::vector<double> hm_param, lenpointer lenpt,
-        std::vector<int> random_pos )
+        ranpospointer random_posf )
 {
     mat ha(n,n);
 
+    /*
+    double debug_arr[]={0,0.234,0.768,0.4786,0.9321,0.5123,0.687,0.939};
+    static int debug_ind = -1;
+    debug_ind++;
+     // debug code for non random result
+    */
+
+    auto random_pos=random_posf(hm_param);
     for (int i=0;i<random_pos.size();i++)
     {
+        if(i>=hm_param.size()) {break;}
         if( random_pos[i] == 1)
         {
             hm_param[i] = hm_param[i]*rand()/(double)(RAND_MAX);
+            //hm_param[i]=hm_param[i]*debug_arr[debug_ind];// DEBUG
         }
         else if( random_pos[i] == -1)
         {
@@ -248,6 +420,7 @@ void Hamiltonian::state_init(hmpointer hm, std::vector<double> hm_param, lenpoin
         for(uword j=0;j<n;j++)
         {
             ha(i,j)=hm(i,j,n,hm_param);
+            //if (ha(i,j)!=0){std::cout<<i<<" "<<j<<" : "<<ha(i,j)<<"\n";}
         }
     }
 

@@ -268,7 +268,7 @@ void Model::rgstep()
 void Model::fixedpoint ()
 {
     int rem;
-    while(1)
+    while(true)
     {
         rem = n;
         this->rgstep();
@@ -343,7 +343,7 @@ vector<measurement> get_measures()
 
 
 vector<double> generate_measures(hmpointer hm, vector<double> hm_param, lenpointer lenpt,
-        int size, double V, int repeat, vector< measurement > measures, vector<int> random_pos,
+        int size, double V, int repeat, vector< measurement > measures, ranpospointer random_pos,
         bool dist, std::string pathheader, vector<int> param_path )
 {
     Hamiltonian hamiltonian(size);
@@ -362,9 +362,14 @@ vector<double> generate_measures(hmpointer hm, vector<double> hm_param, lenpoint
         std::stringstream ss;
         for (int k=0; k<param_path.size(); k++)
         {
-            if(param_path[k]>0)
+            if(param_path[k]>0 and hm_param.size()>k)
             {
                 ss<<hm_param[k]<<"-";
+            }
+            else if (k>=hm_param.size())
+            {
+                cout<<k<<" ";//
+                break;
             }
 
         }

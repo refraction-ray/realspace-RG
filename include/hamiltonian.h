@@ -3,8 +3,9 @@
 
 #include <vector>
 #include <algorithm>
-#include <armadillo>
+#include <stdexcept>
 #include <cmath>
+#include <armadillo>
 
 # define GAP 0.000001
 # define Pi 3.141592653589793
@@ -16,17 +17,21 @@ typedef double (*hmpointer) (arma::uword, arma::uword, arma::uword, std::vector<
 typedef double (*lenpointer) (std::vector<double> hm_param); // function return localization length
 
 double avco(arma::vec & state); // calculate the position expectation value given wave function
-std::vector<int> get_no_pos();
-std::vector<int> get_qp_pos();
+std::vector<int> get_no_pos(std::vector<double> hm_param);
+std::vector<int> get_qp_pos(std::vector<double> hm_param);
+std::vector<int> get_tridiag_pos(std::vector<double> hm_param);
+
+typedef std::vector<int> (*ranpospointer) (std::vector<double>);
 
 //double random_h (arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double qp_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double two_band_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 double tbath_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
-
+double tridiag_h(arma::uword i, arma::uword j, arma::uword size, std::vector<double> param);
 
 double qp_len(std::vector<double> hm_param);// suitable for case with mixed random and qp potentials
 double two_band_len(std::vector<double> hm_param);
+double tridiag_len(std::vector<double> hm_param);
 
 class Hamiltonian
 {
@@ -36,7 +41,7 @@ public:
     int n;
     double length;
     Hamiltonian(int size);
-    void state_init(hmpointer hm, std::vector<double> hm_param, lenpointer lenpt, std::vector<int> random_pos = get_no_pos());
+    void state_init(hmpointer hm, std::vector<double> hm_param, lenpointer lenpt, ranpospointer random_pos);
 };
 
 #endif //HAMILTONIAN_H

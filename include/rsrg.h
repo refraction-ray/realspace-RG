@@ -52,7 +52,7 @@ std::vector<measurement> get_measures();
 
 std::vector<double> generate_measures(hmpointer hm, std::vector<double> hm_param, lenpointer lenpt,
                          int size, double V, int repeat, std::vector< measurement > measures,
-                         std::vector<int> random_pos, bool dist, std::string pathheader, std::vector<int> param_path);
+                         ranpospointer random_pos, bool dist, std::string pathheader, std::vector<int> param_path);
 
 /* the main function of the package
 hm: the hamiltonian function pointer for single-particle hamiltonian matrix elements

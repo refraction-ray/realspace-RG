@@ -49,7 +49,6 @@ std::vector<int> get_param_inpath_pr() // used for two band model with all param
 {
     std::vector<int> result(4,1);
     return result;
-
 }
 
 std::vector<int> get_param_inpath_tb()
@@ -59,11 +58,17 @@ std::vector<int> get_param_inpath_tb()
     return result;
 }
 
+std::vector<int> get_param_inpath_tridiag()
+{
+    std::vector<int> result(30,1);
+    return result;
+}
+
 
 void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputpath, hmpointer& hmf,
-        lenpointer& lenf, std::vector<int>& random_pos, std::vector<int>& param_path, int argc,char** argv )
+        lenpointer& lenf, ranpospointer& random_pos, std::vector<int>& param_path, int argc,char** argv )
 {
-    const char *optString = "i:o:d:qpt";
+    const char *optString = "i:o:d:qptg";
     int opt=0;
     opt = getopt( argc, argv, optString );
     strcpy(inputpath, "input.txt");
@@ -71,7 +76,7 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
     strcpy(distoutputpath,"");
     lenf = qp_len;
     hmf = qp_h;
-    random_pos = get_qp_pos();
+    random_pos = get_qp_pos;
     param_path = get_param_inpath();
 
     while( opt != -1 ) {
@@ -93,17 +98,25 @@ void arg_parser(char* inputpath, char* outputpath, bool& dist, char* distoutputp
                 lenf = qp_len;
                 break;
 
-            case 'p':
-                random_pos = get_no_pos();
+            case 'p': // pseudo random two band model: with some QP universality feature
+                random_pos = get_no_pos;
                 hmf = two_band_h;
                 lenf = two_band_len;
                 param_path = get_param_inpath_pr();
                 break;
 
-            case 't':
+            case 't':// model with thermal bath
                 hmf = tbath_h;
                 lenf = qp_len;
                 param_path = get_param_inpath_tb();
+                break;
+
+            case 'g':// general model with tridiagonal terms
+                hmf = tridiag_h;
+                lenf = tridiag_len;
+                random_pos = get_tridiag_pos;
+                param_path = get_param_inpath_tridiag();
+                break;
 
             default:
                 /* You won't actually get here. */

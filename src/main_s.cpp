@@ -4,21 +4,19 @@
 
 int main(int argc, char** argv)
 {
+
     using namespace std;
     srand((unsigned)time(0));
     char inputpath[INPUT], outputpath[INPUT], distoutputpath[INPUT];
     bool dist = false;
     lenpointer lenf;
     hmpointer hmf;
-    std::vector<int> random_pos;
+    ranpospointer random_pos;
     std::vector<int> param_path;
-
     arg_parser(inputpath,outputpath,dist,distoutputpath,hmf,lenf,random_pos,param_path, argc,argv);
-
     string dist_header(distoutputpath);
     vector<double> data(INPUT);
     vector<int> signal(2);
-
     signal = readin(inputpath, data);
     if(signal[0]==0)
     {
