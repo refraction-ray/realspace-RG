@@ -48,11 +48,19 @@ The format of the input.txt, every line is for one process, the format is `NN-ho
 
 ### New format on pseudorandom models (experimental)
 
+The model is a two band model with random potential but share the similar universal behavior with QP models in terms of MBL criticality, see arXiv:1906.00971 for details.
+
 The format of input file `lower-band-width`, `upper-band-width`,`middle-gap-width`,`no-transfer-probability`,`system-size`,`interaction`,`repeat-times`. To explore this model, use the command option `-p` instead of `-q` (by default) or `-r`.
 
 ### New format on model with thermal bath inclusion (experimental)
 
-The format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential thermal-inclusion-size system-size interaction repeat-times` . The model is the same as the quasiperiodic model except the fact that the first `thermal-inclusion-size` of sites share the same chemical potential and thus consist of a thermal bath. Use `-t` flag  for this model. Note: the short options `r,q,p,t` are exclusive and only one can be used for the computations.
+The format is `NN-hopping qp-potential-amplitude qp-potential-wavevector qp-potential-sample-window NNN-hopping random-onsite-potential thermal-inclusion-size system-size interaction repeat-times` . The model is the same as the quasiperiodic model except the fact that the first `thermal-inclusion-size` of sites share the same chemical potential and thus consist of a thermal bath. Use `-t` flag  for this model. Note: the short options `q,p,t,g` are exclusive and only one can be used for the computations.
+
+### New format on model with general form of on-site potential and NN/NNN hoppings (experimental)
+
+The format is still one line for each Hamiltonian paramters with the form `hm_param, size, interaction, repeat-times`. In terms of hm_param, to describe more general systems, we divide it into three parts which control on-site potential, NN hopping and NNN hopping, respectively. The form of each one is like `c1,c2,c3,c4,c5,c6,c7,c8,c9…`, representing the form $$c_1+c_2*U[0,1]+c_3\cos(c_4*i+c_5)+c_6\cos(c_7*i+c_8)$$, the sum of cosine ended when 0 is in the position of $$c_{3n}$$. And the sequence begins to describe the next term. For example, `-w/2,w,0,0,0,t,k,2pi,0,0,0`, represents the system with on-site potential $$[-W/2,W/2]$$, also with quasiperiodic NN hopping by $$t\cos(ki+\phi)$$, where $$\phi$$ is a fixed random number distributed in $$[0,2\pi]$$ for each Hamiltonian.
+
+To read such data form and do the real space RG calculation, you need `-g` flag in cli.
 
 ## Workflow
 
@@ -65,7 +73,7 @@ srun -n 80 -N 4 bin/rsrgmpi -i utils/input.txt -o utils/output.txt -q -d data/
 
 where 80 should be the number of lines in inputfile **plus 1**, and 4 is the number of total nodes you want to utilize. To submit the task, just use `sbatch -N 4 run.sh` .
 
-If one want to utilize the massive data with `-d` option for each disorder configuration, one should utilize the python3 script in `utils/` to merge files and generate simple data report for further regression or visulization analysis.
+If one want to utilize the massive data with `-d` option for each disorder configuration, one should utilize the python3 script in `utils/` to merge files and generate simple data report for further regression or visulization analysis. One may need further hack on the python script to make it suitable for certain type of filename.
 
 For more scripts in mathematica to generate input files and extract content from output files, together with some basic critical behavior analysis, see `utils/`.
 
@@ -82,7 +90,6 @@ S.-X. Zhang and H. Yao, Phys. Rev. Lett. **121**, 206601 (2018).
 *We list arXiv version of the papers mentioned above so that everyone can access them.*
 
 * [Universal properties of many-body localization transitions in quasiperiodic systems](https://arxiv.org/abs/1805.05958)
-
 * [Universal properties of many-body delocalization transitions](https://arxiv.org/abs/1501.03501)
-
 * [Scaling Theory of Entanglement at the Many-Body Localization Transition](https://arxiv.org/abs/1701.04827)
+* [Strong and Weak Many-Body Localizations](https://arxiv.org/abs/1906.00971)
